@@ -9,7 +9,7 @@ services:
       - .env
 
   backend:
-    image: vav134/backendfoodgram:v2.1
+    image: vav134/backendfoodgram::latest
     restart: always
     depends_on:
       - db
@@ -20,7 +20,7 @@ services:
       - .env
 
   frontend:
-    image: vav134/frontendfoodgram:v2.1
+    image: vav134/frontendfoodgram::latest
     volumes:
       - ../frontend/:/app/result_build/
 
