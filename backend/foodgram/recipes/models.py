@@ -5,6 +5,18 @@ from users.models import User
 #  User = get_user_model()
 
 
+class Ingredient(models.Model):
+    name = models.CharField('Название', max_length=256)
+    measurement_unit = models.CharField('Единица измерения', max_length=64)
+
+    class Meta:
+        verbose_name = 'Ингредиент'
+        verbose_name_plural = 'Ингредиенты'
+
+    def __str__(self):
+        return '{}, {}'.format(self.name, self.measurement_unit)
+
+
 class Tag(models.Model):
     name = models.CharField('Тег', max_length=256)
     slug = models.SlugField('Slug', unique=True)
@@ -16,18 +28,6 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Ingredient(models.Model):
-    name = models.CharField('Название', max_length=256)
-    measurement_unit = models.CharField('Единица измерения', max_length=64)
-
-    class Meta:
-        verbose_name = 'Ингредиент'
-        verbose_name_plural = 'Ингредиенты'
-
-    def __str__(self):
-        return '{}, {}'.format(self.name, self.measurement_unit)
 
 
 class Recipe(models.Model):

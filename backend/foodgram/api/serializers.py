@@ -8,19 +8,19 @@ from rest_framework.validators import UniqueTogetherValidator
 from users.models import User
 
 
+class IngredientSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ingredient
+        fields = ('id', 'name', 'measurement_unit')
+
+
 class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
         fields = ('id', 'name', 'slug', 'color')
         read_only_fields = ('name', 'slug', 'color')
-
-
-class IngredientSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Ingredient
-        fields = ('id', 'name', 'measurement_unit')
 
 
 class CustomUserSerializer(UserSerializer):

@@ -4,9 +4,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
-class RecipeFavorShopListViewSet(mixins.ListModelMixin,
-                                 mixins.CreateModelMixin,
+class RecipeFavorShopListViewSet(mixins.CreateModelMixin,
                                  mixins.DestroyModelMixin,
+                                 mixins.ListModelMixin,
                                  mixins.RetrieveModelMixin,
                                  viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
