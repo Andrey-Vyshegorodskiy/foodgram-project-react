@@ -10,6 +10,7 @@ $ sudo docker-compose exec backend python manage.py migrate
 - Собрать статику:
 ```Bash
 $ sudo docker-compose exec backend python manage.py collectstatic --no-input
+$ sudo docker-compose exec backend python manage.py createsuperuser
 ```
 - Заполнить БД тестовыми записями:
 ```Bash
