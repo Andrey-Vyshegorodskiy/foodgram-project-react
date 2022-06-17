@@ -1,4 +1,3 @@
-#  from django.contrib.auth import get_user_model
 from django.db.models import F, Sum
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -20,8 +19,6 @@ from .serializers import (FavoritesListSerializer, FollowSerializer,
                           RecipeListSerializer, ShoppingListSerializer,
                           TagSerializer, UserFollowerSerializer)
 
-#  User = get_user_model()
-
 
 class TagViewSet(ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
@@ -38,9 +35,9 @@ class IngredientViewSet(ReadOnlyModelViewSet):
 
 class RecipeViewSet(ModelViewSet):
     queryset = Recipe.objects.all()
-    permission_classes = (IsAuthorOrAdmin,)
     filterset_class = RecipeFilter
     pagination_class = LimitPageNumberPagination
+    permission_classes = (IsAuthorOrAdmin,)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -94,13 +91,11 @@ class FollowViewSet(ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(
-            serializer.data, status=status.HTTP_201_CREATED, headers=headers
-        )
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def destroy(self, request, *args, **kwargs):
         instance = get_object_or_404(
-            Follow, user=request.user.id, author=kwargs.get('author_id')
-        )
+            Follow, user=request.user.id, author=kwargs.get('author_id'))
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
 

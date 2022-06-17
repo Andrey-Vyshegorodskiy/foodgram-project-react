@@ -68,11 +68,13 @@
 
 ### Ссылка на сайт:
 
+http://130.193.54.104/
+
 http://130.193.54.104/admin/
 
 http://130.193.54.104/api/
 
-http://130.193.54.104/api/docs
+
 
 ### После развертывания проекта на удаленном сервере, обязательно выполнить: 
 - Выполнить миграции:
@@ -86,7 +88,6 @@ $ sudo docker-compose exec backend python manage.py collectstatic --no-input
 - Заполнить БД тестовыми записями:
 ```Bash
 $ sudo docker-compose exec web python manage.py loaddata dump.json
-$ sudo docker-compose exec backend python manage.py load_data
 ```
 - Создать суперпользователя:
 ```Bash
