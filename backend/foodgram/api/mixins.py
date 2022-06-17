@@ -23,8 +23,8 @@ class RecipeFavorShopListViewSet(mixins.CreateModelMixin,
             serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def destroy(self, request, *args, **kwargs):
-        user = request.user.id
-        recipe = kwargs.get('recipe_id')
-        instance = get_object_or_404(self.Meta.model, user=user, recipe=recipe)
+        instance = get_object_or_404(self.Meta.model,
+                                     user=request.user.id,
+                                     recipe=kwargs.get('recipe_id'))
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
