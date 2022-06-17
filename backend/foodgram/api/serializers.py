@@ -28,8 +28,10 @@ class CustomUserSerializer(UserSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'id', 'username', 'first_name', 'last_name',
-                  'is_subscribed')
+        fields = (
+            'email', 'id', 'username', 'first_name', 'last_name',
+            'is_subscribed'
+        )
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
@@ -91,14 +93,16 @@ class RecipeListSerializer(serializers.ModelSerializer):
         if not request or request.user.is_anonymous:
             return False
         return FavoritesList.objects.filter(
-            user=request.user, recipe=obj).exists()
+            user=request.user, recipe=obj
+        ).exists()
 
     def get_is_in_shopping_cart(self, obj):
         request = self.context.get('request')
         if not request or request.user.is_anonymous:
             return False
         return ShoppingList.objects.filter(
-            user=request.user, recipe=obj).exists()
+            user=request.user, recipe=obj
+        ).exists()
 
 
 class RecipeCreateSerializer(serializers.ModelSerializer):
@@ -117,7 +121,8 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
     def validate_cooking_time(self, value):
         if value < 1:
             raise serializers.ValidationError(
-                'Время приготовления должно быть целым числом больше 0!')
+                'Время приготовления должно быть целым числом больше 0!'
+            )
         return value
 
     def validate_ingredients(self, value):
@@ -142,7 +147,8 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         tags = self.initial_data.get('tags')
         if len(tags) > len(set(tags)):
             raise serializers.ValidationError(
-                'Повторяющихся тегов в одном рецепе быть не должно!')
+                'Повторяющихся тегов в одном рецепе быть не должно!'
+            )
         return value
 
     def to_representation(self, instance):
@@ -158,14 +164,16 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
                 amount += F('amount')
             IngredientRecipe.objects.update_or_create(
                 recipe=recipe, ingredient=item_id,
-                defaults={'amount': amount})
+                defaults={'amount': amount}
+            )
 
     def create(self, validated_data):
-        recipe = Recipe.objects.create(
-            image=validated_data.pop('image'), **validated_data)
-        recipe.tags.set(validated_data.pop('tags'))
-        self.add_ingredients_in_recipe(
-            recipe, validated_data.pop('ingredients'))
+        image = validated_data.pop('image')
+        ingredients = validated_data.pop('ingredients')
+        tags = validated_data.pop('tags')
+        recipe = Recipe.objects.create(image=image, **validated_data)
+        recipe.tags.set(tags)
+        self.add_ingredients_in_recipe(recipe, ingredients)
         return recipe
 
     def update(self, instanse, validated_data):
