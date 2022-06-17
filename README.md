@@ -66,11 +66,15 @@
 - добавлять/удалять/редактировать ингредиенты.
 - добавлять/удалять/редактировать теги.
 
+### Ссылка на сайт:
 
+http://84.201.141.50/admin/
 
+http://84.201.141.50/api/v1/
 
-sudo docker-compose exec backend python manage.py migrate --noinput
+http://84.201.141.50/redoc/
 
+### После развертывания проекта на удаленном сервере, обязательно выполнить: 
 - Выполнить миграции:
 ```Bash
 $ sudo docker-compose exec backend python manage.py migrate
@@ -78,11 +82,17 @@ $ sudo docker-compose exec backend python manage.py migrate
 - Собрать статику:
 ```Bash
 $ sudo docker-compose exec backend python manage.py collectstatic --no-input
-$ sudo docker-compose exec backend python manage.py createsuperuser
 ```
 - Заполнить БД тестовыми записями:
 ```Bash
+$ sudo docker-compose exec web python manage.py loaddata dump.json
 $ sudo docker-compose exec backend python manage.py load_data
+```
+- Создать суперпользователя:
+```Bash
+$ sudo docker-compose exec backend python manage.py createsuperuser
+```
+
 
 ## Примеры
 
@@ -98,8 +108,8 @@ $ sudo docker-compose exec backend python manage.py load_data
 - [GET] /api/ingredients/ - Список ингредиентов с возможностью поиска по имени.
 
 
-## Авторы
+## Автор
 
-Андрей Вышегородский
+- :white_check_mark: [Andrey-Vyshegorodskiy](https://github.com/Andrey-Vyshegorodskiy)
 
 ```
