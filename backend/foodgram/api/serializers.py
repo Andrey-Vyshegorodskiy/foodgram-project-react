@@ -119,25 +119,21 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         return value
 
     def validate_ingredients(self, ingredients):
-        #  ingredients = value
         if not ingredients:
             raise serializers.ValidationError('Укажите ингредиенты!')
         ingredients_set = []
         for ingredient in ingredients:
             if int(ingredient['amount']) <= 0:
                 raise serializers.ValidationError(
-                    'Количество ингредиентов должно быть больше 0'
-                )
+                    'Количество ингредиентов должно быть больше 0')
             if ingredient['id'] in ingredients_set:
                 raise serializers.ValidationError(
-                    'Ингредиенты в рецепте не должны повторяться!'
-                )
+                    'Ингредиенты в рецепте не должны повторяться!')
             else:
                 ingredients_set.append(ingredient['id'])
         return ingredients
 
     def validate_tags(self, tags):
-        #  tags = value
         if len(tags) > len(set(tags)):
             raise serializers.ValidationError(
                 'Повторяющихся тегов в одном рецепе быть не должно!')
