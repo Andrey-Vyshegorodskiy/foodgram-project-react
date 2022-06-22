@@ -87,7 +87,7 @@ $ sudo docker-compose exec backend python manage.py collectstatic --no-input
 ```
 - Заполнить БД тестовыми записями:
 ```Bash
-$ sudo docker-compose exec web python manage.py loaddata dump.json
+$ sudo docker-compose exec backend python manage.py loaddata dump.json
 ```
 - Создать суперпользователя:
 ```Bash
