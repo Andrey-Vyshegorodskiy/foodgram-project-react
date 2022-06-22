@@ -118,8 +118,8 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
                 'Время приготовления должно быть больше 0!')
         return value
 
-    def validate_ingredients(self, value):
-        ingredients = value
+    def validate_ingredients(self, ingredients):
+        #  ingredients = value
         if not ingredients:
             raise serializers.ValidationError('Укажите ингредиенты!')
         ingredients_set = []
@@ -134,14 +134,14 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
                 )
             else:
                 ingredients_set.append(ingredient['id'])
-        return value
+        return ingredients
 
-    def validate_tags(self, value):
-        tags = value
+    def validate_tags(self, tags):
+        #  tags = value
         if len(tags) > len(set(tags)):
             raise serializers.ValidationError(
                 'Повторяющихся тегов в одном рецепе быть не должно!')
-        return value
+        return tags
 
     def to_representation(self, instance):
         serializer = RecipeListSerializer(instance)
