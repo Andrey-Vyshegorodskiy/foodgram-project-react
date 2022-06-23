@@ -21,7 +21,7 @@ jobs:
           pip install flake8 pep8-naming flake8-broken-line flake8-return flake8-isort pytest
           pip install -r backend/foodgram/requirements.txt
       - name: Test with flake8 and django tests
-        run: flake8 . --exclude tests/,*/migrations,venv --per-file-ignores */settings.py:E501 --ignore W503,F811,N806,I001,I005
+        run: flake8 . --exclude tests/,*/migrations,venv --per-file-ignores */settings.py:E501 --ignore W503,F811,N806
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
