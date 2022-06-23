@@ -1,5 +1,6 @@
 from django_filters import rest_framework as filters
-from recipes.models import Ingredient, Recipe
+from recipes.models import Ingredient
+from recipes.models import Recipe
 from users.models import User
 
 
